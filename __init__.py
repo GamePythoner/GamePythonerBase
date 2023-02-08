@@ -20,9 +20,9 @@ class Game(object):
     window: The pygame surface of the window of the game (define by @poperty) (READONLY ARGUMENT)
     windowflags: The flags of the window of the game. (define by @property)
     """
-    def __init__(self, title:str='Untitled game',
+    def __init__(self, title:str='Untitled game', FPS:int=60
             windowsize:typing.List[int, int]=[800, 608], windowflags:int=0,
-            startwith:extend_types.NoneType | ):
+            startwith:extend_types.NoneType | scene.Scene):
         """Init the game.
 
         Args:
@@ -38,6 +38,8 @@ class Game(object):
         self.now=startwith
         self.pressed=set()
         self.key_mod=0
+        self.FPS=FPS
+        self.clock=pygame.time.Clock()
         pass
     def __init_display(self):
         self.__window=pygame.display.set_mode(self.windowsize, self.windowflags, 32)
@@ -72,6 +74,7 @@ class Game(object):
     
     def run(self:Game):
         while self.now is not None:
+            time_passed=self.clock.tick(self.FPS)
             for i in pygame.event.get():
                 match i.type:
                     case KEYDOWN:
@@ -84,8 +87,8 @@ class Game(object):
                     self.key_mod=i.type
                     pass
 
-                self.now.event(i, self)
+                self.now.event(i, time_passed, self)
                 pass
 
-            self.now.update(self)
+            self.now.update(self, time_passed)
             pass
