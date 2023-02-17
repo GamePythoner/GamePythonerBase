@@ -6,3 +6,5 @@ lib64
 pyvenv.cfg
 env/
 
+# Python
+__pycache__/*

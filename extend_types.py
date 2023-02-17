@@ -1,4 +1,5 @@
-import typing
+import pygame
+from all import *
 
 NoneType=type(None)
 

@@ -2,6 +2,7 @@
 """
 
 from all import *
+import pygame.locals as pyglocal
 
 def init():
     """Init the library.
@@ -20,9 +21,9 @@ class Game(object):
     window: The pygame surface of the window of the game (define by @poperty) (READONLY ARGUMENT)
     windowflags: The flags of the window of the game. (define by @property)
     """
-    def __init__(self, title:str='Untitled game', FPS:int=60
-            windowsize:typing.List[int, int]=[800, 608], windowflags:int=0,
-            startwith:extend_types.NoneType | scene.Scene):
+    def __init__(self, title:str='Untitled game', FPS:int=60,
+            windowsize:typing.Tuple[int, int]=[800, 608], windowflags:int=0,
+            startwith:extend_types.NoneType | scene.Scene = None):
         """Init the game.
 
         Args:
@@ -72,12 +73,12 @@ class Game(object):
         self.__init_display
         pass
     
-    def run(self:Game):
+    def run(self):
         while self.now is not None:
             time_passed=self.clock.tick(self.FPS)
             for i in pygame.event.get():
                 match i.type:
-                    case KEYDOWN:
+                    case pyglocal.KEYDOWN:
                         self.pressed.add(i.key)
                         pass
                     case KEYUP:

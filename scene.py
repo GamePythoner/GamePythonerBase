@@ -1,6 +1,6 @@
 from all import *
 
-VOID_FUNC=lambda x, y:pass
+VOID_FUNC=lambda x, y:None
 
 class Scene(object):
     '''A scene.
